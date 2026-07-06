@@ -1,6 +1,5 @@
 All funtions working
-No safety mechanism yet, Mayabag siyag di mao na info imo e feed.
-
+safety mechanism Works
 [done] 		Add new student — Let Dr. Santos enter a new student (ID, name, major, GPA, credits)
 [done?] 	Student data storage — Hold information for up to 10 students
 [done]		Search by ID — Find a student and display all their information
@@ -21,3 +20,6 @@ I never miss a match and keeps my logic simple and reliable. By separating the a
 own steps, the program acts as a pipeline where each part of the process only handles its specific job. This keeps the flow 
 clean and makes it easy to fix bugs, as I always know exactly which step of the process is responsible for the data I am 
 currently handling.
+
+
+

@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAXCHARACTER 31 //Limit pilay sood sa name, major etc
+
 //Function Protitypes:
-void add_student(int Idnum[], char name[][31], char major[][31], float gpa[], int credits[], int *Content, int *MaxStudent);
+void add_student(int Idnum[], char name[][MAXCHARACTER], char major[][MAXCHARACTER], float gpa[], int credits[], int *Content, int *MaxStudent);
 
-void printall(int Idnum[], char name[][31], char major[][31], float gpa[], int credits[], int *Content, int *MaxStudent);
+void printall(int Idnum[], char name[][MAXCHARACTER], char major[][MAXCHARACTER], float gpa[], int credits[], int *Content, int *MaxStudent);
 
-void search(int Idnum[], char name[][31], char major[][31], float gpa[], int credits[], int *Content, int *MaxStudent, int *men2);
+void search(int Idnum[], char name[][MAXCHARACTER], char major[][MAXCHARACTER], float gpa[], int credits[], int *Content, int *MaxStudent, int *men2);
 
 void cls();
 
@@ -15,12 +17,12 @@ int main()
 {
 
     //student info area.
-    int MaxStudent = 3; //tig limit sa pilay ma sulod
+    int MaxStudent = 10; //tig limit sa pilay ma sulod na students
 
     int Content=0; // counter if pila na ang sulod
     int Idnum[MaxStudent]; 
-    char name[MaxStudent][31];
-    char major[MaxStudent][31];
+    char name[MaxStudent][MAXCHARACTER];
+    char major[MaxStudent][MAXCHARACTER];
     float gpa[MaxStudent]; //float ko 
     int credits[MaxStudent];
 
@@ -29,11 +31,29 @@ int main()
     char choi=0;
 
     do
-    {
-        printf("======================\nStudent Registry Menu:\n======================\n");
-        printf("Press[1]:ADD NEW STUDENT\nPress[2]:SEARCH STUDENT\nPress[3]:DISPLAY ALL STUDENTS\nPress[0] EXIT PROGRAM\n\nEnter Choice:");
+    {   
+        int menuvalidation = 0;
+        while(!menuvalidation)
+        {
+            cls();
+            printf("======================\nStudent Registry Menu:\n======================\n");
+            printf("Press[1]:ADD NEW STUDENT\nPress[2]:SEARCH STUDENT\nPress[3]:DISPLAY ALL STUDENTS\nPress[0] EXIT PROGRAM\n\nEnter Choice:");
 
-        scanf("%d", &men1);
+            if(scanf("%d", &men1) !=1)
+            {
+                printf("Invalid choice, please enter a number only!\n");
+                while(getchar() != '\n');
+            }
+            else if(men1 < 0 || men1 > 3)
+            {
+                printf("Invalid choice, please select a numbers from 0-3 only!\n");
+            }
+            else
+            {
+                menuvalidation = 1;
+                cls();
+            }
+        }
 
         if(men1 == 1) //ADDSTUDENT
         {
@@ -44,10 +64,28 @@ int main()
 
         else if(men1 == 2) //SEARCH MENU AREA
         {
-            printf("\n\nSearch student by:\n\nID....................press[1]\nAbove GPA threshold...press[2]\nMajor.................press[3]\n\nEnter Choice:");
-            scanf("%d", &men2);
+            int searchflag=0;
+            while(!searchflag)
+            {
+                cls();
+                printf("\n\nSearch student by:\n\nID....................press[1]\nAbove GPA threshold...press[2]\nMajor.................press[3]\n\nEnter Choice:");
+                if(scanf("%d", &men2)!= 1)
+                {
+                    printf("Enter number only!\n");
+                    while(getchar() != '\n');
+                }
 
-            search(Idnum, name, major, gpa, credits, &Content, &MaxStudent, &men2);
+                else if(men2<1 || men2>3)
+                {
+                    printf("choice out of range!\n");
+                }
+
+                else
+                {
+                    searchflag=1;
+                    search(Idnum, name, major, gpa, credits, &Content, &MaxStudent, &men2);
+                }
+            }
 
         }
 
@@ -56,15 +94,10 @@ int main()
             printall(Idnum, name, major, gpa, credits, &Content, &MaxStudent);
         }
 
-        else if(men1 == 0)
+        else //(men1 == 0)
         {
             printf("\n\nClosing program!");
             choi = 'n';
-        }
-
-        else
-        {
-            printf("Number 1 - 3 lang nganeeee\n");
         }
 
         if(men1 != 0)
@@ -72,8 +105,6 @@ int main()
             printf("\n\nGo back to MAIN MENU?(y/n):");
             scanf(" %c", &choi);
         }
-
-
 
         cls();
         }while(choi == 'y' || choi == 'Y');
@@ -103,7 +134,7 @@ void cls()
 }
 
 //ADDING OF NEW STUDENT FUNCTION
-void add_student(int Idnum[], char name[][31], char major[][31], float gpa[], int credits[], int *Content, int *MaxStudent)
+void add_student(int Idnum[], char name[][MAXCHARACTER], char major[][MAXCHARACTER], float gpa[], int credits[], int *Content, int *MaxStudent)
 {
 
     printf("Enter Student Information:");
@@ -115,23 +146,70 @@ void add_student(int Idnum[], char name[][31], char major[][31], float gpa[], in
 
 
     int i = *Content;
-    printf("\nID:");
-    scanf("%d", &Idnum[i]);
+
+    int flag1 = 0;
+    while(!flag1)
+    {
+        printf("\nID:");
+        if(scanf("%d", &Idnum[i]) != 1)
+        {
+            printf("Enter a number only!\n");
+            while(getchar() != '\n');
+        }
+
+        else
+        {
+            flag1= 1;
+        }
+    }
+
     printf("\nName:");
     scanf("%s", name[i]);
-    printf("\nMajor:");
-    scanf("%s", major[i]);  
-    printf("\nGPA:");
-    scanf("%f", &gpa[i]);
-    printf("\nCredit:");
-    scanf("%d", &credits[i]);
+    while(getchar() != '\n');
 
+    printf("\nMajor:");
+    scanf("%s", major[i]);
+    while(getchar() != '\n');
+
+    int flag4 = 0;
+    while(!flag4)
+    {
+        printf("\nGPA:");
+        if(scanf("%f", &gpa[i]) != 1)
+        {
+            printf("Enter a number only!\n");
+            while(getchar() != '\n');
+        }
+
+        else
+        {
+            flag4= 1;
+        }
+    }
+  
+    int flag5 = 0;
+    while(!flag5)
+    {
+        printf("\nCredit:");
+        if(scanf("%d", &credits[i]) != 1)
+        {
+            printf("Enter a number only!\n");
+            while(getchar() != '\n');
+        }
+
+        else
+        {
+            flag5= 1;
+        }
+    }
+    printf("\nSTUDENT ADDED!\n");
     (*Content)++;
 }
 
 //SEARCH FUNTION
-void search(int Idnum[], char name[][31], char major[][31], float gpa[], int credits[], int *Content, int *MaxStudent, int *men2)
+void search(int Idnum[], char name[][MAXCHARACTER], char major[][MAXCHARACTER], float gpa[], int credits[], int *Content, int *MaxStudent, int *men2)
 {
+
     if(*men2 == 1) // SEARCH BY ID
     {
         int SIN=0; //Student ID NUMBERR
@@ -194,7 +272,7 @@ void search(int Idnum[], char name[][31], char major[][31], float gpa[], int cre
 
     else if(*men2 == 3)
     {
-        char mj[31]; //MAJOR SA STUDENT
+        char mj[MAXCHARACTER]; //MAJOR SA STUDENT
         int flaggy=0;
         int fcount=0;
         printf("MAJOR FILTER:");
@@ -205,7 +283,7 @@ void search(int Idnum[], char name[][31], char major[][31], float gpa[], int cre
         for(int i=0; i<*Content; i++)
         {   
             int flaggy2=0; //Match flagg
-            for(int j=0; j<31; j++)
+            for(int j=0; j<MAXCHARACTER; j++)
             {
                 if(major[i][j] != mj[j])
                 {
@@ -248,7 +326,7 @@ void search(int Idnum[], char name[][31], char major[][31], float gpa[], int cre
 }
 
 //PRINT ALL STUDENT FUNTION
-void printall(int Idnum[], char name[][31], char major[][31], float gpa[], int credits[], int *Content, int *MaxStudent)
+void printall(int Idnum[], char name[][MAXCHARACTER], char major[][MAXCHARACTER], float gpa[], int credits[], int *Content, int *MaxStudent)
 {
     printf("STUDENT LIST:\n");
 
