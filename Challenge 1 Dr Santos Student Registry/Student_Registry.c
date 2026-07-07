@@ -255,7 +255,7 @@ void search(int Idnum[], char name[][MAXCHARACTER], char major[][MAXCHARACTER], 
 
         for(int i=0; i<*Content; i++)
         {
-            if(gpa[i] <=gp)
+            if(gpa[i] >=gp)
             {
                 printf("%6d | %15.15s | %15.15s | %6.2f | %7d\n", Idnum[i], name[i], major[i], gpa[i], credits[i]);
                 printf("----------------------------------------------------------------------\n");
