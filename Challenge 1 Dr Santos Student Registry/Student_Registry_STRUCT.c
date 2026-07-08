@@ -14,58 +14,79 @@ typedef struct{
     int credits;
 }STUDENT;
 
-int numcheck(int *num);
-
 
 int main(){
 
     STUDENT student[MAXSTUDENTS];
-    int men1=0;
-    char choice;
-    do{
-        int flag1=0;
-        while(flag1==0){
-            int men1=0;
-            system("cls");
-            printf("======================\nStudent Registry Menu:\n======================\n");
-            printf("Press[1]:ADD NEW STUDENT\nPress[2]:SEARCH STUDENT\nPress[3]:DISPLAY ALL STUDENTS\nPress[0] EXIT PROGRAM\n\nEnter Choice:");
 
-            int flag2=0;
-            if(numcheck(&men1)){
-                if(men1 < 0 || men1 > 3)
-                {
-                    printf("PLEASE SELECT FROM NUMBER 0-3 only\npress enter to continue:\n");
-                    getchar();getchar();
+    int men1=0, men2=0;
+    char choi;
+    do{
+        int gate = 0;
+        while(!gate){
+            printf("======================\nStudent Registry Menu:\n======================\n");
+            printf("Press[1]:ADD NEW STUDENT\nPress[2]:SEARCH STUDENT\nPress[3]:DISPLAY ALL STUDENTS\nPress[0] EXIT PROGRAM\n\nEnter Choice:");        
+
+            if(scanf("%d", &men1) !=1){
+                printf("Invalid choice, please enter a number only!\n");
+                while(getchar() != '\n');
+            }
+            else if(men1 < 0 || men1 > 3){
+                printf("Invalid choice, please select a numbers from 0-3 only!\n");
+            }
+            else{
+                gate = 1;
+            }
+        }
+
+        if(men1 == 1){ //ADDSTUDENT
+            printf("You add student here:\n");
+
+
+            // add_student(Idnum, name, major, gpa, credits, &Content, &MaxStudent);
+        }
+
+        else if(men1 == 2){ //SEARCH MENU AREA
+            int searchflag=0;
+            while(!searchflag){
+                printf("\n\nSearch student by:\n\nID....................press[1]\nAbove GPA threshold...press[2]\nMajor.................press[3]\n\nEnter Choice:");
+                if(scanf("%d", &men2)!= 1){
+                    printf("Enter number only!\n");
+                    while(getchar() != '\n');
+                }
+
+                else if(men2<1 || men2>3){
+                    printf("choice out of range!\n");
                 }
 
                 else{
-                    flag1=1;
+                    searchflag=1;
+                    // search(Idnum, name, major, gpa, credits, &Content, &MaxStudent, &men2);
                 }
-
-            }
-
-            else{
-                printf("ENTER A NUMBER ONLY!\npress enter to continue:\n");
-                getchar();
-
             }
         }
 
+        else if(men1 == 3){
+            // printall(Idnum, name, major, gpa, credits, &Content, &MaxStudent);
+        }
+
+        else{ //(men1 == 0)
+            printf("\n\nClosing program!");
+            choi = 'n';
+        }
 
         if(men1 != 0){
-            printf("Return to Main Menu?(y/n):");
-            scanf(" %c", &choice);           
+            printf("\n\nGo back to MAIN MENU?(y/n):");
+            scanf(" %c", &choi);
         }
 
+    }while(choi == 'y' || choi == 'Y');
 
-    }while(choice == 'y' || choice =='Y');
 
-    
-    
-    
 
     return 0;
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,14 +96,7 @@ int main(){
 
 //FUNCTIONS:
 
-int numcheck(int *num){
-    if(scanf("%d", num)==1){
-        return 1;
-    }
-
-    else{
-        while(getchar() !='\n');
-        return 0;
-    }
-
+void addstudent()
+{
+    
 }
