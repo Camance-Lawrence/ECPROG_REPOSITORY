@@ -27,14 +27,14 @@ void printall(STUDENT *s, int *lcounter);
 
 int main(){
 
-    STUDENT student[MAXSTUDENTS]={0};
+    STUDENT student[MAXSTUDENTS]={0};//SET TO ZERO PARA IG PRINT SA INFO PLACE HOLDERS ZERO ANG MO GAWAS AS INITIAL VALUE DILI GARBAGE VALUE
 
     int men1=0, men2=0;
     char choi;
     int lcounter=0;
     do{
         int gate = 0;
-        while(!gate){
+        while(!gate){//MAIN MENU
             cls();
             printf("======================\nStudent Registry Menu:\n======================\n");
             printf("Press[1]:ADD NEW STUDENT\nPress[2]:SEARCH STUDENT\nPress[3]:DISPLAY ALL STUDENTS\nPress[0] EXIT PROGRAM\n\nEnter Choice:");        
@@ -55,7 +55,7 @@ int main(){
         }
 
         if(men1 == 1){ //ADDSTUDENT
-            if(lcounter < MAXSTUDENTS){
+            if(lcounter < MAXSTUDENTS){//OVERFLOW GAURD
                 printf("You add student here:\n");
                 addstudent(student, &lcounter);
             }
@@ -66,8 +66,8 @@ int main(){
         }
 
         else if(men1 == 2){ //SEARCH MENU AREA
-            int searchflag=0;
-            while(!searchflag){
+            int searchflag=0;//FLAGS FOR VALIDATIONS
+            while(!searchflag){//
                 cls();
                 printf("\n\nSearch student by:\n\nID....................press[1]\nAbove GPA threshold...press[2]\nMajor.................press[3]\n\nEnter Choice:");
                 if(scanf("%d", &men2)!= 1){
@@ -81,12 +81,12 @@ int main(){
 
                 else{
                     //SEARCH BY ID
-                    int tarid=0;
+                    int tarid=0;//TARGET ID
                     if(men2 == 1){
                         cls();
                         printf("Enter Id number:");
                         scanf("%d", &tarid);
-                        searchid(student, &tarid, &lcounter);
+                        searchid(student, &tarid, &lcounter);//FOR AESTHTICS
                     }
                     //SEARCH BY GPA
                     else if(men2 == 2){
@@ -105,7 +105,7 @@ int main(){
                         scanf("%s", smajor);
                         searchmajor(student, smajor, &lcounter);
                     }
-                    searchflag=1;
+                    searchflag=1;//INPUTS ARE CORRECT, NO NEED TO LOOP
                 }
             }
         }
@@ -151,8 +151,7 @@ void fullna(){
     getchar();
 }
 
-void addheader(STUDENT *s, int *slider)
-{
+void addheader(STUDENT *s, int *slider){
     cls();
     printf("===============================\n");
     printf("=====STUDENT INFORMATION=======\n");
@@ -168,8 +167,7 @@ void addheader(STUDENT *s, int *slider)
 
 //======================FUNCTIONS:
 
-void cls()
-{
+void cls(){
     #ifdef _WIN32
         system("cls");
     #else
