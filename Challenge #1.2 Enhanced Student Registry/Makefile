@@ -1,17 +1,29 @@
-TARGET = TEST.exe
-SRC = EnhancedStudentRegistry.c EnhancedStudentRegistryMAIN.c
-OBJ = EnhancedStudentRegistry.o EnhancedStudentRegistryMAIN.o
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11
+SRCS = EnhancedStudentRegistryMAIN.c EnhancedStudentRegistry.c
+OBJS = $(SRCS:.c=.o)
+HEADERS = EnhancedStudentRegistry.h
 
-all:$(TARGET)
+ifeq ($(OS),Windows_NT)
+    TARGET = EnhancedStudentRegistry.exe
+    RM = del /Q
+else
+    TARGET = EnhancedStudentRegistry
+    RM = rm -f
+endif
 
-$(TARGET): $(OBJ)
-	gcc $(OBJ) -o $(TARGET)
+all: $(TARGET)
 
-%.o: %.c
-	gcc -c $< -o $@
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-run:all
-	./$(TARGET)
+%.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	del /f $(OBJ) $(TARGET)
+	$(RM) $(OBJS) $(TARGET)
+
+run: all
+	./$(TARGET)
+
+.PHONY: all clean run

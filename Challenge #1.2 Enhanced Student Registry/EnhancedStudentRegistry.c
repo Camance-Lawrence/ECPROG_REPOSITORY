@@ -200,7 +200,7 @@ void loadfile(STUDENT *student, int *StudentCount){//READING FUNTION
         return;
     }
     *StudentCount=0;
-    while(fscanf(file,"%d | %s | %s | %.2f | %d", &student[*StudentCount].idnum, student[*StudentCount].name, student[*StudentCount].major, &student[*StudentCount].gpa, &student[*StudentCount].credit) == 5){
+    while(fscanf(file,"%d %s %s %f %d\n", &student[*StudentCount].idnum, student[*StudentCount].name, student[*StudentCount].major, &student[*StudentCount].gpa, &student[*StudentCount].credit) == 5){
         (*StudentCount)++;
         if(*StudentCount >= MAXSTUDENTS) break;
     }
@@ -213,10 +213,11 @@ void savefile(STUDENT *student, int *StudentCount){//SAVING FUNCTION
     if(file == NULL){
         printf("Cant save the data!\npress enter to continue\n");
         getchar();
+        return;
     }
 
     for(int i=0; i<*StudentCount; i++){
-        fprintf(file, "%d | %s | %s | %.2f | %d\n", student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);       
+        fprintf(file, "%d %s %s %f %d\n", student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);       
     }
 
     fclose(file);
