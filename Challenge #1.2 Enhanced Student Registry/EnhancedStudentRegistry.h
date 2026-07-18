@@ -22,4 +22,7 @@ void searchid(STUDENT *student, int *StudentCount);
 void gpat(STUDENT *student, int *StudentCount);
 void majort(STUDENT *student, int *StudentCount);
 
+void loadfile(STUDENT *student, int *StudentCount);
+void savefile(STUDENT *student, int *StudentCount);
+
 #endif
