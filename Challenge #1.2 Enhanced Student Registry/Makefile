@@ -1,8 +1,6 @@
-#TEST MAKE FILE
 TARGET = TEST.exe
 SRC = EnhancedStudentRegistry.c EnhancedStudentRegistryMAIN.c
 OBJ = EnhancedStudentRegistry.o EnhancedStudentRegistryMAIN.o
-
 
 all:$(TARGET)
 

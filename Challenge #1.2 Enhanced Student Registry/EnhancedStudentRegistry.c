@@ -193,3 +193,32 @@ void majort(STUDENT *student, int *StudentCount){
         printf("No students found in this major.\n");
     }
 }
+
+void loadfile(STUDENT *student, int *StudentCount){//READING FUNTION
+    FILE *file = fopen("Student.dat", "r");
+    if(file == NULL){
+        return;
+    }
+    *StudentCount=0;
+    while(fscanf(file,"%d | %s | %s | %.2f | %d", &student[*StudentCount].idnum, student[*StudentCount].name, student[*StudentCount].major, &student[*StudentCount].gpa, &student[*StudentCount].credit) == 5){
+        (*StudentCount)++;
+        if(*StudentCount >= MAXSTUDENTS) break;
+    }
+    fclose(file);
+    printf("%d student infos are loaded\n", *StudentCount);
+
+}
+void savefile(STUDENT *student, int *StudentCount){//SAVING FUNCTION
+    FILE *file = fopen("Student.dat", "w");
+    if(file == NULL){
+        printf("Cant save the data!\npress enter to continue\n");
+        getchar();
+    }
+
+    for(int i=0; i<*StudentCount; i++){
+        fprintf(file, "%d | %s | %s | %.2f | %d\n", student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);       
+    }
+
+    fclose(file);
+    printf("%d student infos are saved\n", *StudentCount);
+}

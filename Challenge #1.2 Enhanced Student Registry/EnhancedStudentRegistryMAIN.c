@@ -7,6 +7,7 @@ int main(){
     int StudentCount = 0; //COUNTS HOW MANY STUDENT IS INSIDE THE REGISTRY 
     STUDENT student[MAXSTUDENTS]={0};
 
+    loadfile(student, &StudentCount);
     do{
         clsr();
         mainmenu();//DISPPLAYS MAINMENU
@@ -15,6 +16,7 @@ int main(){
         {
         case 1: //done
             addstudent(student, &StudentCount);
+            savefile(student, &StudentCount);
             printf("\nPress Enter to return to menu...");
             while (getchar()!='\n'); getchar();
             break;
