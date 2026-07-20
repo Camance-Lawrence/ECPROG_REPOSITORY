@@ -15,38 +15,49 @@ int main(){
         switch (choice)
         {
         case 1: //done
+        clsr();
             addstudent(student, &StudentCount);
             savefile(student, &StudentCount);
             printf("\nPress Enter to return to menu...");
-            while (getchar()!='\n'); getchar();
+            while (getchar()!='\n'); 
+            getchar();
             break;
         
         case 2: //done
-            printf("\nDisplay All Students");
+            clsr();
+            printf("\nDisplay All Students\n");
+            loadfile(student, &StudentCount);
             displayall(student, &StudentCount);
             printf("\nPress Enter to return to menu...");
-            while (getchar()!='\n'); getchar();
+            while (getchar()!='\n'); 
+            getchar();
             break;
 
         case 3: //done
-            printf("\nSearch by Student ID");
+            clsr();
+            printf("\nSearch by Student ID\n");
             searchid(student, &StudentCount);
             printf("\nPress Enter to return to menu...");
-            while (getchar()!='\n'); getchar();
+            while (getchar()!='\n'); 
+            getchar();
             break;
 
         case 4: //done
+            clsr();
             printf("\nFind by GPA Threshold");
             gpat(student, &StudentCount);
             printf("\nPress Enter to return to menu...");
-            while (getchar()!='\n'); getchar();
+            while (getchar()!='\n'); 
+            getchar();
             break;
 
         case 5://done
+            clsr();
             printf("\nFind by Major");
             majort(student, &StudentCount);
             printf("\nPress Enter to return to menu...");
-            while (getchar()!='\n'); getchar();
+            while (getchar()!='\n'); 
+            getchar();
             break;
         
         case 0:

@@ -23,6 +23,17 @@ void mainmenu(){
     );
 }
 
+void addstudentdesign(STUDENT *student, int *StudentCount){
+    int i=*StudentCount;
+    printf("");
+    clsr();
+    printf("id no: %d\n", student[i].idnum);
+    printf("Name: %s\n", student[i].name);//name
+    printf("Major: %s\n", student[i].major);//major
+    printf("GPA: %.2f\n", student[i].gpa);
+    printf("Credit: %d\n", student[i].credit);
+}
+
 int majorlist(){
     int major=0;
     int validator=0;
@@ -30,8 +41,8 @@ int majorlist(){
         printf(
             "\n"
             "SELECT A MAJOR:\n"
-            "Computer_Studies........Press[1]\n"
-            "SBM.....................Press[2]\n"
+            "Computer Studies........Press[1]\n"
+            "BUSINESS.....................Press[2]\n"
             "Enter choice:"
             );
 
@@ -92,27 +103,31 @@ void addstudent(STUDENT *student, int *StudentCount){
             while (getchar()!='\n'); getchar();
             break;
         }
-
+        addstudentdesign(student, StudentCount);
         printf("\nEnter Student id no:");
         scanf("%d", &student[i].idnum);
-
+        
+        addstudentdesign(student, StudentCount);
         printf("\nEnter Student Name:");
-        scanf("%30s", student[i].name);
+        scanf(" %30[^\n]", student[i].name);
 
+        addstudentdesign(student, StudentCount);
         int mchoice = majorlist();
         switch (mchoice){
-            case 1: strcpy(student[i].major, "Computer_Studies"); break;
-            case 2: strcpy(student[i].major, "SBM"); break;
+            case 1: strcpy(student[i].major, "Computer Studies"); break;
+            case 2: strcpy(student[i].major, "BUSINESS"); break;
         }
 
+        addstudentdesign(student, StudentCount);
         printf("\nEnter GPA:");
         scanf("%f", &student[i].gpa);
 
+        addstudentdesign(student, StudentCount);
         printf("\nEnter Credit:");
         scanf("%d", &student[i].credit);
 
         (*StudentCount)++;
-
+        addstudentdesign(student, StudentCount);
         printf("\nAdd another student?(y/n)");
         scanf(" %c", &choice);
     }while(choice == 'Y' || choice == 'y');
@@ -122,20 +137,25 @@ void addstudent(STUDENT *student, int *StudentCount){
 }
 
 void displayall(STUDENT *student, int *StudentCount){
+    printf("-------------------------------------------------------------------------\n");
     for(int i=0; i<*StudentCount; i++){
-        printf("Student %d:\n%d\n%s\n%s\n%f\n%d\n\n", i+1, student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);
+        printf("%-3d: %-6d | %-20s | %-18s | %-5.2f | %-5d |\n", i+1, student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);
+        printf("-------------------------------------------------------------------------\n");
     }
 }
 
 void searchid(STUDENT *student, int *StudentCount){
+
     int TargetIdnumber=0;
     int found=0;
-    printf("Enter student id Number:\n");
+    printf("Enter student id Number: ");
     scanf("%d", &TargetIdnumber);
     for(int i=0; i<*StudentCount; i++){
         if(student[i].idnum == TargetIdnumber){
             printf("Target id: %d\n", TargetIdnumber);
-            printf("Student %d:\n%d\n%s\n%s\n%f\n%d\n\n", i+1, student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);
+            printf("-------------------------------------------------------------------------\n");
+            printf("%-3d: %-6d | %-20s | %-18s | %-5.2f | %-5d |\n", i+1, student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);
+            printf("-------------------------------------------------------------------------\n");
             found=1;
         }
     }
@@ -148,17 +168,23 @@ void searchid(STUDENT *student, int *StudentCount){
 void gpat(STUDENT *student, int *StudentCount){
     float targetGPA=0;
     int found=0;
-    printf("Enter target GPA Threshold:\n");
-    scanf("%f", &targetGPA);
-    for(int i=0; i<*StudentCount; i++){
+    printf("Enter target GPA Threshold: ");
+    if(scanf("%f", &targetGPA)==1){
+        for(int i=0; i<*StudentCount; i++){
+        printf("-------------------------------------------------------------------------\n");
         if(student[i].gpa >= targetGPA){
-            printf("Target id: %f\n", targetGPA);
-            printf("Student %d:\n%d\n%s\n%s\n%f\n%d\n\n", i+1, student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);
+            printf("%-3d: %-6d | %-20s | %-18s | %-5.2f | %-5d |\n", i+1, student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);
+            printf("-------------------------------------------------------------------------\n");
             found=1;
         }
     }
     if(!found){
         printf("No Student found within Threshold\n");
+    }
+    }
+
+    else{
+        printf("\nEnter a valid number!\n");
     }
 }
 
@@ -169,16 +195,18 @@ void majort(STUDENT *student, int *StudentCount){
     int pingcounter=0;
     
     if(TargetMajor == 1){
-        strcpy(smajor, "Computer_Studies");
+        strcpy(smajor, "Computer Studies");
     }
 
     else if(TargetMajor == 2){
-        strcpy(smajor, "SBM");
+        strcpy(smajor, "BUSINESS");
     }
 
     for(int i=0; i<*StudentCount; i++){
+        printf("-------------------------------------------------------------------------\n");
         if(strcmp(student[i].major, smajor)==0){
-            printf("Student %d:\n%d\n%s\n%s\n%f\n%d\n\n", i+1, student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);
+            printf("%-3d: %-6d | %-20s | %-18s | %-5.2f | %-5d |\n", i+1, student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);
+            printf("-------------------------------------------------------------------------\n");
             pingcounter++;
             found=1;
         }
@@ -196,14 +224,38 @@ void majort(STUDENT *student, int *StudentCount){
 
 void loadfile(STUDENT *student, int *StudentCount){//READING FUNTION
     FILE *file = fopen("Student.dat", "r");
-    if(file == NULL){
-        return;
-    }
-    *StudentCount=0;
-    while(fscanf(file,"%d %s %s %f %d\n", &student[*StudentCount].idnum, student[*StudentCount].name, student[*StudentCount].major, &student[*StudentCount].gpa, &student[*StudentCount].credit) == 5){
+    if(file == NULL) return;
+
+    *StudentCount = 0;
+    char buffer[100];
+
+    while(fgets(buffer, sizeof(buffer), file) != NULL && *StudentCount < MAXSTUDENTS){
+
+        int i = *StudentCount;//gi I para mobo rag sood ang []
+
+        char *token = strtok(buffer, "|");
+        if(token==NULL) continue;
+        student[i].idnum = atoi(token);
+
+        token = strtok(NULL, "|");
+        if(token==NULL) continue;
+        strcpy(student[i].name, token);
+
+        token = strtok(NULL, "|");
+        if(token==NULL) continue;
+        strcpy(student[i].major, token);
+
+        token = strtok(NULL, "|");
+        if(token==NULL) continue;
+        student[i].gpa = atof(token);
+
+        token = strtok(NULL, "|\n");
+        if(token==NULL) continue;
+        student[i].credit = atoi(token);
+
         (*StudentCount)++;
-        if(*StudentCount >= MAXSTUDENTS) break;
     }
+    
     fclose(file);
     printf("%d student infos are loaded\n", *StudentCount);
 
@@ -217,7 +269,7 @@ void savefile(STUDENT *student, int *StudentCount){//SAVING FUNCTION
     }
 
     for(int i=0; i<*StudentCount; i++){
-        fprintf(file, "%d %s %s %f %d\n", student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);       
+        fprintf(file, "%d|%s|%s|%.2f|%d\n", student[i].idnum, student[i].name, student[i].major, student[i].gpa, student[i].credit);       
     }
 
     fclose(file);

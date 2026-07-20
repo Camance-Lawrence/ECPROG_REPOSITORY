@@ -14,6 +14,7 @@ typedef struct{
 
 void clsr();
 void mainmenu();
+void addstudentdesign(STUDENT *student, int *StudentCount);//input design ra
 int majorlist();
 int getchoice();
 void addstudent(STUDENT *student, int *StudentCount);
