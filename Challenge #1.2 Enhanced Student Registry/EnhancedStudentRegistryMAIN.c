@@ -35,6 +35,7 @@ int main(){
 
         case 3: //done
             clsr();
+            loadfile(student, &StudentCount);
             printf("\nSearch by Student ID\n");
             searchid(student, &StudentCount);
             printf("\nPress Enter to return to menu...");
@@ -44,6 +45,7 @@ int main(){
 
         case 4: //done
             clsr();
+            loadfile(student, &StudentCount);
             printf("\nFind by GPA Threshold");
             gpat(student, &StudentCount);
             printf("\nPress Enter to return to menu...");
@@ -53,6 +55,7 @@ int main(){
 
         case 5://done
             clsr();
+            loadfile(student, &StudentCount);
             printf("\nFind by Major");
             majort(student, &StudentCount);
             printf("\nPress Enter to return to menu...");
