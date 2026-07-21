@@ -15,7 +15,7 @@ int main(){
         switch (choice)
         {
         case 1: //done
-        clsr();
+            clsr();
             addstudent(student, &StudentCount);
             savefile(student, &StudentCount);
             printf("\nPress Enter to return to menu...");
